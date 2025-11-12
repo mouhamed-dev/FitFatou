@@ -123,6 +123,5 @@ html {
 
 /* style.css */
 .bg-primary-alpha-20 {
-  background-color: rgba(229, 9, 20, 0.2);
-  background-color: color-mix(in srgb, var(--color-primary) 20%, transparent);
+  background-color: rgba(254, 206, 5, 0.2);
 }

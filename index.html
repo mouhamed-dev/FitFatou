@@ -1666,31 +1666,50 @@
 
                     // Swipe mobile
                     let startX = 0;
+                    let startY = 0;
 
-                    fullscreenImage.addEventListener('touchstart', e => startX = e.touches[0].clientX);
-                    fullscreenImage.addEventListener('touchend', e => {
-                    let endX = e.changedTouches[0].clientX;
-                    let diff = endX - startX;
-                    let images = JSON.parse(viewer.dataset.images);
-                    let index = parseInt(viewer.dataset.index);
-
-                    if (Math.abs(diff) > 70) {
-                        if (diff < 0) index = (index + 1) % images.length;
-                        else index = (index - 1 + images.length) % images.length;
-
-                        fullscreenImage.src = images[index];
-                        viewer.dataset.index = index;
-                    }
+                    fullscreenImage.addEventListener('touchstart', e => {
+                        startX = e.touches[0].clientX;
+                        startY = e.touches[0].clientY;
                     });
 
-                    // Fermer viewer
-                    viewer.addEventListener('click', () => {
-                    fullscreenImage.classList.remove('scale-100', 'opacity-100');
-                    fullscreenImage.classList.add('scale-95', 'opacity-0');
+                    fullscreenImage.addEventListener('touchend', e => {
+                        let endX = e.changedTouches[0].clientX;
+                        let endY = e.changedTouches[0].clientY;
 
-                    setTimeout(() => viewer.classList.add('hidden'),
-                    document.body.style.overflow = "auto",
-                    200);
+                        let diffX = endX - startX;
+                        let diffY = endY - startY;
+
+                        let images = JSON.parse(viewer.dataset.images);
+                        let index = parseInt(viewer.dataset.index);
+
+                        // ----- SWIPE GAUCHE / DROITE -----
+                        if (Math.abs(diffX) > 70 && Math.abs(diffY) < 50) {
+                            if (diffX < 0) index = (index + 1) % images.length;
+                            else index = (index - 1 + images.length) % images.length;
+
+                            fullscreenImage.src = images[index];
+                            viewer.dataset.index = index;
+                            return;
+                        }
+
+                        // ----- SWIPE TOP → BOTTOM = FERMER -----
+                        if (diffY > 100) {
+                            viewer.classList.add('hidden');
+                            document.body.style.overflow = "auto";
+                            return;
+                        }
+                    });
+
+                    // Fermer viewer (tap extérieur)
+                    viewer.addEventListener('click', () => {
+                        fullscreenImage.classList.remove('scale-100', 'opacity-100');
+                        fullscreenImage.classList.add('scale-95', 'opacity-0');
+
+                        setTimeout(() => {
+                            viewer.classList.add('hidden');
+                            document.body.style.overflow = "auto";
+                        }, 200);
                     });
                     </script>
 

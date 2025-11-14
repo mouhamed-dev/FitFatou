@@ -1632,7 +1632,7 @@
                         <div id="fullscreenViewer"
                             class="hidden fixed inset-0 bg-black/90 flex items-center justify-center z-50">
                             <img id="fullscreenImage" src="" alt="Image"
-                                class="max-w-[90%] sm:max-w-[80%] lg:max-w-[70%] max-h-[90%] sm:max-h-[80%] lg:max-h-[70%] rounded-lg shadow-lg transition-all duration-600 ease-in-out scale-95 opacity-0">
+                                class="w-full h-auto max-h-full sm:max-w-[80%] sm:max-h-[80%] lg:max-w-[70%] lg:max-h-[70%] object-contain rounded-lg shadow-lg transition-all duration-600 ease-in-out scale-95 opacity-0">
                         </div>
                     </section>
 
@@ -1653,6 +1653,8 @@
                         viewer.dataset.index = currentIndex;
                         viewer.dataset.images = JSON.stringify(galleryImages);
                         viewer.classList.remove('hidden');
+
+                        document.body.style.overflow = "hidden";
 
                         setTimeout(() => {
                             fullscreenImage.classList.remove('scale-95', 'opacity-0');
@@ -1686,7 +1688,9 @@
                     fullscreenImage.classList.remove('scale-100', 'opacity-100');
                     fullscreenImage.classList.add('scale-95', 'opacity-0');
 
-                    setTimeout(() => viewer.classList.add('hidden'), 200);
+                    setTimeout(() => viewer.classList.add('hidden'),
+                    document.body.style.overflow = "auto",
+                    200);
                     });
                     </script>
 
@@ -1756,8 +1760,7 @@
 
                     <div class="mt-8 flex justify-center">
                         <a href="#contact"
-                            class="px-6 py-3 rounded border border-white/20 hover:border-primary hover:text-primary transition-colors">Demander
-                            une visite</a>
+                            class="px-6 py-3 rounded border border-white/20 hover:border-primary hover:text-primary transition-colors">Demander une visite</a>
                     </div>
                 </div>
             </div>

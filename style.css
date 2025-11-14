@@ -81,7 +81,52 @@ body {
 }
 
 
+/* Scrollbar pour la galerie */
+#scroll-container-galerie::-webkit-scrollbar {
+  height: 8px;
+}
 
+#scroll-container-galerie::-webkit-scrollbar-track {
+  background: var(--color-surface);
+  border-radius: 10px;
+}
+
+#scroll-container-galerie::-webkit-scrollbar-thumb {
+  background: var(--color-primary);
+  border-radius: 10px;
+  transition: background-color 0.3s ease;
+}
+
+#scroll-container-galerie::-webkit-scrollbar-thumb:hover {
+  background: var(--color-primary); 
+  cursor: none;
+}
+
+/* Compatibilité Firefox */
+#scroll-container-galerie {
+  scrollbar-width: thin;
+  scrollbar-color: var(--color-text) var(--color-surface);
+}
+
+@media (max-width: 640px) {
+    #scroll-container-galerie {
+        -ms-overflow-style: none;
+        scrollbar-width: none;
+    }
+
+    #scroll-container-galerie::-webkit-scrollbar {
+        display: none;
+    }
+}
+
+#fullscreenImage {
+    cursor: grab;
+    user-select: none;
+}
+
+#fullscreenImage:active {
+    cursor: grabbing;
+}
 .bg-primary {
     background-color: var(--color-primary);
 }

@@ -1,7 +1,7 @@
 // funtion Oups
 function oups(e) {
   e.preventDefault();
-  alert("Oups 😒, les liens ne sont pas encore disponibles.");
+  alert("Oups 😒, ce lien n'est pas encore disponible.");
   e.stopPropagation();
 }
 
